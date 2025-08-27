@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Defense Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #2c3e50;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        canvas {
+            border: 3px solid #34495e;
+            background-color: #27ae60;
+            cursor: crosshair;
+        }
+        
+        .ui {
+            margin-top: 20px;
+            color: white;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .health {
+            font-size: 20px;
+            color: #e74c3c;
+        }
+        
+        .money {
+            font-size: 20px;
+            color: #f1c40f;
+        }
+        
+        .instructions {
+            color: #bdc3c7;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white; margin-bottom: 20px;">Tower Defense</h1>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div class="ui">
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="health">Health: <span id="health">100</span></div>
+        <div class="money">Money: $<span id="money">100</span></div>
+        <div style="font-size: 20px; color: #3498db;">Level: <span id="level">1</span></div>
+        <div style="font-size: 18px; color: #9b59b6;">Wave: <span id="wave">1</span></div>
+    </div>
+    <div class="instructions">
+        Click to place towers ($50 each) • Stop enemies from reaching the right side
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
