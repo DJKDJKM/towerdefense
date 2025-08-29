@@ -225,6 +225,9 @@ class Game {
                     this.updateButtonStates();
                     console.log('Selected tower type:', towerType);
                 });
+                console.log('Added event listener for', towerType + 'Btn');
+            } else {
+                console.log('Button not found:', towerType + 'Btn');
             }
         });
         
@@ -1260,5 +1263,19 @@ class Projectile {
     }
 }
 
-const game = new Game();
-window.game = game;
+// Wait for DOM to be fully loaded before starting game
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, starting game...');
+    const game = new Game();
+    window.game = game;
+});
+
+// Fallback in case DOMContentLoaded already fired
+if (document.readyState === 'loading') {
+    // DOM still loading, wait for DOMContentLoaded
+} else {
+    // DOM already loaded
+    console.log('DOM already loaded, starting game immediately...');
+    const game = new Game();
+    window.game = game;
+}
