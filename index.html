@@ -10,6 +10,19 @@
             padding: 20px;
             background-color: #2c3e50;
             font-family: Arial, sans-serif;
+        }
+        
+        .game-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .game-area {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -50,20 +63,191 @@
             margin-top: 10px;
             font-size: 14px;
         }
+        
+        .help-table {
+            background-color: #34495e;
+            border-radius: 8px;
+            padding: 20px;
+            color: white;
+            width: 350px;
+            min-height: 600px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 2px solid #f39c12;
+        }
+        
+        .help-table h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #f39c12;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        .help-section {
+            margin-bottom: 20px;
+        }
+        
+        .help-section h4 {
+            margin: 0 0 8px 0;
+            color: #3498db;
+            font-size: 16px;
+        }
+        
+        .help-section ul {
+            margin: 0;
+            padding-left: 15px;
+        }
+        
+        .help-section li {
+            margin-bottom: 5px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .tower-stats {
+            display: flex;
+            justify-content: space-between;
+            background-color: #2c3e50;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-size: 13px;
+        }
+        
+        .level1 { border-left: 4px solid #34495e; }
+        .level2 { border-left: 4px solid #3498db; }
+        .level3 { border-left: 4px solid #f39c12; }
     </style>
 </head>
 <body>
-    <h1 style="color: white; margin-bottom: 20px;">Tower Defense</h1>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <div class="ui">
-        <div class="score">Score: <span id="score">0</span></div>
-        <div class="health">Health: <span id="health">100</span></div>
-        <div class="money">Money: $<span id="money">100</span></div>
-        <div style="font-size: 20px; color: #3498db;">Level: <span id="level">1</span></div>
-        <div style="font-size: 18px; color: #9b59b6;">Wave: <span id="wave">1</span></div>
-    </div>
-    <div class="instructions">
-        Click to place towers ($50 each) • Stop enemies from reaching the right side
+    <h1 style="color: white; margin-bottom: 20px; text-align: center;">Tower Defense</h1>
+    
+    <div class="game-container">
+        <div class="game-area">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <div class="ui">
+                <div class="score">Score: <span id="score">0</span></div>
+                <div class="health">Health: <span id="health">100</span></div>
+                <div class="money">Money: $<span id="money">100</span></div>
+                <div style="font-size: 20px; color: #3498db;">Level: <span id="level">1</span></div>
+                <div style="font-size: 18px; color: #9b59b6;">Wave: <span id="wave">1</span></div>
+            </div>
+            <div class="instructions">
+                Click buttons to select tower level • Click field to place selected tower • Stop enemies from reaching the end
+            </div>
+            <!-- Basic Towers -->
+            <div style="margin-top: 15px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                <button id="cannonBtn" style="padding: 6px 10px; font-size: 12px; background: #34495e; color: white; border: 2px solid #2c3e50; cursor: pointer;">Cannon ($50)</button>
+                <button id="archerBtn" style="padding: 6px 10px; font-size: 12px; background: #27ae60; color: white; border: 2px solid #229954; cursor: pointer;">Archer ($40)</button>
+                <button id="ballistaBtn" style="padding: 6px 10px; font-size: 12px; background: #8d6e63; color: white; border: 2px solid #6d4c41; cursor: pointer;">Ballista ($80)</button>
+                <button id="natureBtn" style="padding: 6px 10px; font-size: 12px; background: #4caf50; color: white; border: 2px solid #388e3c; cursor: pointer;">Nature ($60)</button>
+            </div>
+            <!-- Ice Towers -->
+            <div style="margin-top: 6px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                <button id="iceBtn" style="padding: 6px 10px; font-size: 12px; background: #81d4fa; color: white; border: 2px solid #4fc3f7; cursor: pointer;">Ice ($70)</button>
+                <button id="frostBtn" style="padding: 6px 10px; font-size: 12px; background: #4fc3f7; color: white; border: 2px solid #29b6f6; cursor: pointer;">Frost ($120)</button>
+                <button id="blizzardBtn" style="padding: 6px 10px; font-size: 12px; background: #0277bd; color: white; border: 2px solid #01579b; cursor: pointer;">Blizzard ($200)</button>
+                <button id="glacierBtn" style="padding: 6px 10px; font-size: 12px; background: #0d47a1; color: white; border: 2px solid #01579b; cursor: pointer;">Glacier ($350)</button>
+            </div>
+            <!-- Fire Towers -->
+            <div style="margin-top: 6px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                <button id="fireBtn" style="padding: 6px 10px; font-size: 12px; background: #ff5722; color: white; border: 2px solid #d84315; cursor: pointer;">Fire ($75)</button>
+                <button id="infernoBtn" style="padding: 6px 10px; font-size: 12px; background: #d84315; color: white; border: 2px solid #bf360c; cursor: pointer;">Inferno ($140)</button>
+                <button id="volcanoBtn" style="padding: 6px 10px; font-size: 12px; background: #bf360c; color: white; border: 2px solid #870000; cursor: pointer;">Volcano ($250)</button>
+                <button id="phoenixBtn" style="padding: 6px 10px; font-size: 12px; background: #ff6d00; color: white; border: 2px solid #e65100; cursor: pointer;">Phoenix ($400)</button>
+            </div>
+            <!-- Lightning Towers -->
+            <div style="margin-top: 6px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                <button id="lightningBtn" style="padding: 6px 10px; font-size: 12px; background: #ffd54f; color: black; border: 2px solid #ffc107; cursor: pointer;">Lightning ($90)</button>
+                <button id="teslaBtn" style="padding: 6px 10px; font-size: 12px; background: #03a9f4; color: white; border: 2px solid #0277bd; cursor: pointer;">Tesla ($160)</button>
+                <button id="stormBtn" style="padding: 6px 10px; font-size: 12px; background: #3f51b5; color: white; border: 2px solid #303f9f; cursor: pointer;">Storm ($280)</button>
+                <button id="thunderBtn" style="padding: 6px 10px; font-size: 12px; background: #1a237e; color: white; border: 2px solid #0d1461; cursor: pointer;">Thunder ($450)</button>
+            </div>
+            <!-- Tech Towers -->
+            <div style="margin-top: 6px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                <button id="laserBtn" style="padding: 6px 10px; font-size: 12px; background: #e91e63; color: white; border: 2px solid #c2185b; cursor: pointer;">Laser ($200)</button>
+                <button id="plasmaBtn" style="padding: 6px 10px; font-size: 12px; background: #9c27b0; color: white; border: 2px solid #7b1fa2; cursor: pointer;">Plasma ($350)</button>
+                <button id="quantumBtn" style="padding: 6px 10px; font-size: 12px; background: #3f51b5; color: white; border: 2px solid #303f9f; cursor: pointer;">Quantum ($650)</button>
+                <button id="nukeBtn" style="padding: 6px 10px; font-size: 12px; background: #ff9800; color: white; border: 2px solid #f57c00; cursor: pointer;">Nuclear ($800)</button>
+            </div>
+        </div>
+        
+        <div class="help-table">
+            <h3>📋 HOW TO PLAY</h3>
+            
+            <div class="help-section">
+                <h4>🎯 Objective</h4>
+                <ul>
+                    <li>Stop enemies from reaching the end</li>
+                    <li>Complete 5 waves per level</li>
+                    <li>Survive all 5 levels to win</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h4>🏗️ Building Towers</h4>
+                <ul>
+                    <li>Click tower level buttons to select</li>
+                    <li>Selected button has gold border</li>
+                    <li>Click on green field to place tower</li>
+                    <li>Can't place on brown path</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h4>🏗️ Tower Types (First 6)</h4>
+                <div class="tower-stats level1">
+                    <span>Cannon Tower</span>
+                    <span>$80</span>
+                </div>
+                <div class="tower-stats level2">
+                    <span>Archer Tower</span>
+                    <span>$60</span>
+                </div>
+                <div class="tower-stats level3">
+                    <span>Magic Tower</span>
+                    <span>$120</span>
+                </div>
+                <div class="tower-stats level1">
+                    <span>Ice Tower</span>
+                    <span>$100</span>
+                </div>
+                <div class="tower-stats level2">
+                    <span>Fire Tower</span>
+                    <span>$110</span>
+                </div>
+                <div class="tower-stats level3">
+                    <span>Lightning Tower</span>
+                    <span>$140</span>
+                </div>
+                <p style="font-size: 12px; color: #bdc3c7; margin-top: 8px;">+ 14 more tower types to unlock!</p>
+            </div>
+            
+            <div class="help-section">
+                <h4>👾 Enemy Types (Some Examples)</h4>
+                <ul>
+                    <li><span style="color: #e74c3c;">●</span> Basic - Standard enemies</li>
+                    <li><span style="color: #3498db;">●</span> Fast - Quick but weak</li>
+                    <li><span style="color: #95a5a6;">●</span> Armored - High defense</li>
+                    <li><span style="color: #9b59b6;">●</span> Crystal - Reflects damage</li>
+                    <li><span style="color: #f39c12;">●</span> Desert - Sandstorm ability</li>
+                    <li><span style="color: #85c1e9;">●</span> Ice - Freezing powers</li>
+                </ul>
+                <p style="font-size: 12px; color: #bdc3c7; margin-top: 5px;">+ 20+ more enemy types across 15 levels!</p>
+            </div>
+            
+            <div class="help-section">
+                <h4>⚡ Tips</h4>
+                <ul>
+                    <li>Start with Archer/Cannon towers</li>
+                    <li>Use tower buttons to select type</li>
+                    <li>15 levels with unique themes!</li>
+                    <li>20+ tower types to discover</li>
+                    <li>25+ enemy types with abilities</li>
+                    <li>Level completion gives bonuses</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <script src="game.js"></script>
 </body>

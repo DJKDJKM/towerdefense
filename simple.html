@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Tower Defense Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #2c3e50;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        canvas {
+            border: 3px solid #34495e;
+            background-color: #27ae60;
+            cursor: crosshair;
+        }
+        
+        .ui {
+            margin-top: 20px;
+            color: white;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .tower-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tower-btn {
+            padding: 8px 12px;
+            font-size: 14px;
+            color: white;
+            border: 2px solid;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white; margin-bottom: 20px;">Tower Defense - Enhanced</h1>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div class="ui">
+        <div style="font-size: 24px; font-weight: bold;">Score: <span id="score">0</span></div>
+        <div style="font-size: 20px; color: #e74c3c;">Health: <span id="health">100</span></div>
+        <div style="font-size: 20px; color: #f1c40f;">Money: $<span id="money">100</span></div>
+        <div style="font-size: 20px; color: #3498db;">Level: <span id="level">1</span></div>
+    </div>
+    
+    <div class="tower-buttons">
+        <button id="cannonBtn" class="tower-btn" style="background: #34495e; border-color: #2c3e50;">Cannon ($50)</button>
+        <button id="archerBtn" class="tower-btn" style="background: #27ae60; border-color: #229954;">Archer ($40)</button>
+        <button id="iceBtn" class="tower-btn" style="background: #3498db; border-color: #2980b9;">Ice ($70)</button>
+        <button id="fireBtn" class="tower-btn" style="background: #e74c3c; border-color: #c0392b;">Fire ($75)</button>
+        <button id="lightningBtn" class="tower-btn" style="background: #f1c40f; border-color: #f39c12; color: black;">Lightning ($90)</button>
+        <button id="laserBtn" class="tower-btn" style="background: #e91e63; border-color: #c2185b;">Laser ($200)</button>
+    </div>
+    
+    <div style="color: white; margin-top: 10px; text-align: center;">
+        Click buttons to select tower type • Click field to place tower
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
